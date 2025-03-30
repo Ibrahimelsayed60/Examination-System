@@ -15,5 +15,9 @@ namespace ExaminationSystem.Domain.Entities
         public string Description { get; set; }
 
         public List<Course> Courses { get; set; }
+
+        public List<Student> Students { get; set; }
+
+        public List<Instructor> Instructors { get; set; }
     }
 }
