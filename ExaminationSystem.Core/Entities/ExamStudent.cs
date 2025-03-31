@@ -15,5 +15,12 @@ namespace ExaminationSystem.Domain.Entities
         public Student Student { get; set; }
         public int StudentId { get; set; }
 
+        public DateTime SubmissionDate { get; set; }
+
+        public bool IsSubmitted { get; set; }
+
+        public double Score { get; set; }
+
+        public List<ExamStudentAnswer> ExamStudentAnswers { get; set; }
     }
 }

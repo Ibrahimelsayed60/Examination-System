@@ -16,12 +16,11 @@ namespace ExaminationSystem.Domain.Entities
 
         public QuestionDifficulty  DifficultyLevel { get; set; }
 
-        public List<Choice> Choices { get; set; }
+        public HashSet<Choice> Choices { get; set; }
 
         public HashSet<ExamQuestion> ExamQuestions { get; set; }
 
-        public Course Course { get; set; }
-        public int CourseId { get; set; }
+
 
     }
 }

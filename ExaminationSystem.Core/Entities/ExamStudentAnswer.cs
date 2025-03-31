@@ -15,5 +15,9 @@ namespace ExaminationSystem.Domain.Entities
         public Choice Choice { get; set; }
         public int ChoiceId { get; set; }
 
+        public ExamStudent ExamStudent { get; set; }
+
+        public int ExamStudentId { get; set; }
+
     }
 }

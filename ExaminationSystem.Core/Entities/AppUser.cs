@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExaminationSystem.Domain.Entities
 {
-    public class User:IdentityUser<int>
+    public class AppUser:IdentityUser<int>
     {
         public string FName { get; set; }
         public string LName { get; set; }

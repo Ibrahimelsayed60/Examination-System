@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExaminationSystem.Domain.Entities
 {
-    public class Instructor:User
+    public class Instructor:AppUser
     {
 
         public DateTime HiringDate { get; set; }
