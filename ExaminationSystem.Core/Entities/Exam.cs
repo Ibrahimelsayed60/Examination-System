@@ -23,10 +23,10 @@ namespace ExaminationSystem.Domain.Entities
         public ExamType Type { get; set; }
 
         public Course Course { get; set; }
-        public int CourseId { get; set; }
+        public int? CourseId { get; set; }
 
         public Instructor Instructor { get; set; }
-        public int InstructorId { get; set; }
+        public int? InstructorId { get; set; }
 
         public HashSet<ExamQuestion> ExamQuestions { get; set; }
 

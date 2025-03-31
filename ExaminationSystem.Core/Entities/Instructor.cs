@@ -12,7 +12,7 @@ namespace ExaminationSystem.Domain.Entities
         public DateTime HiringDate { get; set; }
 
         public Department Department { get; set; }
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         public HashSet<Exam> Exams { get; set; }
 

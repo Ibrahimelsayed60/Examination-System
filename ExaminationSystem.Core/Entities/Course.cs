@@ -21,7 +21,7 @@ namespace ExaminationSystem.Domain.Entities
         public DateTime EndDate { get; set; }
 
         public Department Department { get; set; }
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         public HashSet<Exam> Exams { get; set; }
 

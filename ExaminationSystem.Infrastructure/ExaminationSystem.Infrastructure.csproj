@@ -14,8 +14,4 @@
     <ProjectReference Include="..\ExaminationSystem.Core\ExaminationSystem.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\Configurations\" />
-  </ItemGroup>
-
 </Project>

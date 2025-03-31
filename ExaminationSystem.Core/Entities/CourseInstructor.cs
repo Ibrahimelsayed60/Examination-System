@@ -10,10 +10,10 @@ namespace ExaminationSystem.Domain.Entities
     {
 
         public Instructor Instructor { get; set; }
-        public int InstructorId { get; set; }
+        public int? InstructorId { get; set; }
 
         public Course Course { get; set; }
-        public int CourseId { get; set; }
+        public int? CourseId { get; set; }
 
     }
 }

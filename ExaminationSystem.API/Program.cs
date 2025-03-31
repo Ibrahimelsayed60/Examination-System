@@ -1,6 +1,7 @@
 
 using ExaminationSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace ExaminationSystem.API
 {
@@ -21,7 +22,9 @@ namespace ExaminationSystem.API
 
             builder.Services.AddDbContext<Context>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+                .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
+                .EnableSensitiveDataLogging();
             });
 
             #endregion

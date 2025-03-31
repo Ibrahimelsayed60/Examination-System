@@ -22,7 +22,16 @@ namespace ExaminationSystem.Infrastructure.Data
             base.OnModelCreating(builder);
         }
 
-        public DbSet< MyProperty { get; set; }
+        public DbSet<Choice> Choices { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseInstructor> CourseInstructors { get; set; }
+        public DbSet<CourseStudent> CourseStudents { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Exam> Exams { get; set; }
+        public DbSet<ExamQuestion> ExamQuestions { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Student> Students { get; set; }
 
     }
 }
