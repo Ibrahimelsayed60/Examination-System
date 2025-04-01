@@ -10,11 +10,11 @@ namespace ExaminationSystem.Domain.Repositories.contract
     public interface IUserRepository<T> where T : AppUser
     {
 
-        IQueryable<T> GetAll();
+        Task<IQueryable<T>> GetAllAsync();
 
-        T GetById(int id);
+        Task<T> GetByIdAsync(int id);
 
-        T Add(T entity);
+        Task<T> Add(T entity);
 
         void Update(T entity);
 
