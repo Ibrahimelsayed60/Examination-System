@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,18 +25,23 @@ namespace ExaminationSystem.Infrastructure.Repos
             return  _context.Set<T>().Where(x => !x.IsDeleted).AsNoTrackingWithIdentityResolution();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<IQueryable<T>> GetAllByExpressionAsync(Expression<Func<T, bool>> expression)
+        {
+            return (await GetAllAsync()).Where(expression);
+        }
+
+        public async Task<T> GetByIdAsync(int id)
         {
             var data = await GetAllAsync();
             return await data.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<T> getWithTrackingById(int id)
+        public async Task<T> getWithTrackingByIdAsync(int id)
         {
             return await _context.Set<T>().Where(x=> !x.IsDeleted && x.Id == id).AsTracking().FirstOrDefaultAsync();
         }
 
-        public async Task<T> Add(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
             return entity;
@@ -52,7 +58,17 @@ namespace ExaminationSystem.Infrastructure.Repos
             update(entity);
         }
 
-        public async Task SaveChanges()
+        public void DeleteRange(IEnumerable<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                entity.IsDeleted = true;
+            }
+
+            _context.Set<T>().UpdateRange(entities);
+        }
+
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

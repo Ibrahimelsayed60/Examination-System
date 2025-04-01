@@ -1,4 +1,5 @@
-﻿using ExaminationSystem.Domain.Dtos.Course;
+﻿using ExaminationSystem.Application.Helpers;
+using ExaminationSystem.Domain.Dtos.Course;
 using ExaminationSystem.Domain.Entities;
 using ExaminationSystem.Domain.Repositories.contract;
 using ExaminationSystem.Domain.Services.contract;
@@ -19,29 +20,49 @@ namespace ExaminationSystem.Application.Services
             _courseRepo = courseRepo;
         }
 
-        public Task<int> AddCourse(CourseCreateDto courseCreateDto)
+        public async Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
         {
-            throw new NotImplementedException();
+            return (await _courseRepo.GetAllAsync()).Map<CourseDto>();
         }
 
-        public void DeleteCourse(int id)
+        public async Task<CourseDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return (await _courseRepo.GetByIdAsync(id)).Mapone<CourseDto>();
         }
 
-        public Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
+        public async Task<int> AddCourse(CourseCreateDto courseCreateDto)
         {
-            throw new NotImplementedException();
+            var course = await _courseRepo.AddAsync(courseCreateDto.Mapone<Course>());
+
+            await _courseRepo.SaveChangesAsync();
+
+            return course.Id;
         }
 
-        public Task<CourseDto> GetByIdAsync(int id)
+        public async Task UpdateCourse(CourseUpdateDto courseUpdateDto)
         {
-            throw new NotImplementedException();
+            var course = await _courseRepo.getWithTrackingByIdAsync(courseUpdateDto.Id);
+
+            if(course is null)
+            {
+                throw new KeyNotFoundException("Course not found");
+            }
+
+            _courseRepo.update(courseUpdateDto.Mapone<Course>());
+            await _courseRepo.SaveChangesAsync();
         }
 
-        public void UpdateCourse(CourseUpdateDto courseUpdateDto)
+        public async Task DeleteCourse(int id)
         {
-            throw new NotImplementedException();
+            var course = _courseRepo.getWithTrackingByIdAsync(id);
+
+            if (course is null)
+            {
+                throw new KeyNotFoundException("Course not found");
+            }
+
+            _courseRepo.Delete(course.Mapone<Course>());
+            await _courseRepo.SaveChangesAsync();
         }
     }
 }

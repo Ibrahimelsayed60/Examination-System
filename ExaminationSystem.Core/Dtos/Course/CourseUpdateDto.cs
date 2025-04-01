@@ -20,5 +20,7 @@ namespace ExaminationSystem.Domain.Dtos.Course
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
+
+        public int DepartmentId { get; set; }
     }
 }

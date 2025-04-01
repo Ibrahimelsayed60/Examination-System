@@ -16,9 +16,9 @@ namespace ExaminationSystem.Domain.Services.contract
 
         Task<int> AddCourse(CourseCreateDto courseCreateDto);
 
-        void UpdateCourse(CourseUpdateDto courseUpdateDto);
+        Task UpdateCourse(CourseUpdateDto courseUpdateDto);
 
-        void DeleteCourse(int id);
+        Task DeleteCourse(int id);
 
 
 
