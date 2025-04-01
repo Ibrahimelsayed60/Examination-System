@@ -25,7 +25,7 @@ namespace ExaminationSystem.Application.Services
         {
             IQueryable<CourseInstructor> data = await _repo.GetAllByExpressionAsync(predicate);
 
-            return data.Map<CourseInstructorDto>();
+            return data.Map<CourseInstructorDto>().ToList();
         }
 
 
@@ -38,6 +38,11 @@ namespace ExaminationSystem.Application.Services
             await _repo.SaveChangesAsync();
         }
 
-        
+        public async Task<int> AddCourseInstructorIDs(CourseInstructorDto courseInstructor)
+        {
+            var data = await _repo.AddAsync(courseInstructor.Mapone<CourseInstructor>());
+
+            return data.Id;
+        }
     }
 }

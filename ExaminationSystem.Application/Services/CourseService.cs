@@ -6,6 +6,7 @@ using ExaminationSystem.Domain.Services.contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,7 +23,12 @@ namespace ExaminationSystem.Application.Services
 
         public async Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
         {
-            return (await _courseRepo.GetAllAsync()).Map<CourseDto>();
+            return (await _courseRepo.GetAllAsync()).Map<CourseDto>().ToList();
+        }
+
+        public async Task<IEnumerable<CourseDto>> GetAllCoursesByExpression(Expression<Func<Course, bool>> predicate)
+        {
+            return (await _courseRepo.GetAllByExpressionAsync(predicate)).Map<CourseDto>().ToList();
         }
 
         public async Task<CourseDto> GetByIdAsync(int id)
@@ -64,5 +70,7 @@ namespace ExaminationSystem.Application.Services
             _courseRepo.Delete(course.Mapone<Course>());
             await _courseRepo.SaveChangesAsync();
         }
+
+        
     }
 }

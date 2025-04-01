@@ -13,6 +13,8 @@ namespace ExaminationSystem.Domain.Services.contract
     {
         Task<IEnumerable<CourseInstructorDto>> Get(Expression<Func<CourseInstructor, bool>> predicate);
 
+        Task<int> AddCourseInstructorIDs(CourseInstructorDto courseInstructor);
+
         Task DeleteRange(IEnumerable<CourseInstructorDto> courseInstructorDtos);
     }
 }

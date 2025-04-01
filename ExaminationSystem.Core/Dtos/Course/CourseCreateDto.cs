@@ -22,5 +22,9 @@ namespace ExaminationSystem.Domain.Dtos.Course
 
         public int DepartmentId { get; set; }
 
+        public ICollection<int> InstructorsIDs { get; set; }
+
+        public ICollection<int> StudentsIDs { get; set; }
+
     }
 }

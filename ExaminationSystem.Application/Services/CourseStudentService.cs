@@ -25,7 +25,7 @@ namespace ExaminationSystem.Application.Services
         {
             IQueryable<CourseStudent> data = await _repo.GetAllByExpressionAsync(predicate);
 
-            return data.Map<CourseStudentDto>();
+            return data.Map<CourseStudentDto>().ToList();
         }
 
         public async Task<int> Add(CourseStudentDto courseStudentDto)

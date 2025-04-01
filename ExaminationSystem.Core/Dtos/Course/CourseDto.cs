@@ -22,5 +22,7 @@ namespace ExaminationSystem.Domain.Dtos.Course
         public DateTime EndDate { get; set; }
 
         public int DepartmentId { get; set; }
+
+        public ICollection<int> StudentsIDs { get; set; }
     }
 }
