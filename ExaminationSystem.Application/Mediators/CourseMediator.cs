@@ -64,14 +64,47 @@ namespace ExaminationSystem.Application.Mediators
             return ciID;
         }
 
-        public Task UpdateCourse(CourseUpdateDto course)
+        public async Task UpdateCourse(CourseUpdateDto course)
         {
-            throw new NotImplementedException();
+            var data = _courseInstructorService.Get(c => c.InstructorId == course.InstructorsIDs.FirstOrDefault() && c.CourseId == course.Id);
+
+            if(data is null)
+            {
+                throw new Exception();
+            }
+
+            await _courseService.UpdateCourse(course);
+
         }
 
-        public Task DeleteCourse(CourseUpdateDto course)
+        public async Task DeleteCourse(CourseUpdateDto course)
         {
-            throw new NotImplementedException();
+            var courses = await _courseService.GetByIdAsync(course.Id);
+
+            if(courses is not null)
+            {
+                await _courseService.DeleteCourse(course.Id);
+
+                var courseInstructors = await _courseInstructorService.Get(c => c.CourseId == course.Id);
+
+                if (courseInstructors is not null)
+                {
+                    await _courseInstructorService.DeleteRange(courseInstructors);
+                }
+
+                var courseStudents = await _courseStudentService.Get(c => c.CourseId == course.Id);
+
+                if (courseStudents is not null)
+                {
+                    await _courseStudentService.DeleteRange(courseStudents);
+                }
+
+            }
+            else
+            {
+                new Exception("Course Not Found");
+            }
+
         }
      
     }
