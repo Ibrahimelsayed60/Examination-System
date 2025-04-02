@@ -43,6 +43,10 @@ namespace ExaminationSystem.API
                 builder.RegisterModule(new AutofacModule()));
             #endregion
 
+            #region AutoMapper
+
+            #endregion
+
 
             var app = builder.Build();
 
