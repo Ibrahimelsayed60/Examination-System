@@ -1,5 +1,9 @@
 
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using ExaminationSystem.Domain.Entities;
 using ExaminationSystem.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -27,6 +31,16 @@ namespace ExaminationSystem.API
                 .EnableSensitiveDataLogging();
             });
 
+            builder.Services.AddIdentity<AppUser, IdentityRole<int>>()
+                .AddEntityFrameworkStores<Context>();
+
+            #endregion
+
+            #region Autofac Registration
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+            builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+                builder.RegisterModule(new AutofacModule()));
             #endregion
 
 
