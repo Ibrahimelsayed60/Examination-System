@@ -23,11 +23,12 @@ namespace ExaminationSystem.API
             builder.RegisterAssemblyTypes(typeof(ICourseService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(ICourseStudentService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(ICourseInstructorService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
-            //builder.RegisterAssemblyTypes(typeof(IDepartmentService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
-            builder.RegisterType<DepartmentService>().As<IDepartmentService>().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(IChoiceService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
 
+            builder.RegisterType<ChoiceService>().As<IChoiceService>().InstancePerLifetimeScope();
+            builder.RegisterType<ChoiceMediator>().As<IChoiceMediator>().InstancePerLifetimeScope();
 
+            builder.RegisterType<DepartmentService>().As<IDepartmentService>().InstancePerLifetimeScope();
             builder.RegisterType<DepartmentMediator>().As<IDepartmentMediator>().InstancePerLifetimeScope();
 
             builder.Register(context => new MapperConfiguration(cfg =>

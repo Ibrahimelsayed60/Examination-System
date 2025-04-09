@@ -35,6 +35,9 @@ namespace ExaminationSystem.Application.Mediators
             await _choiceService.DeleteChoice(choiceId);
         }
 
-        
+        public async Task<IEnumerable<ChoiceDto>> GetAllChoices()
+        {
+            return await _choiceService.GetAllChoices();
+        }
     }
 }

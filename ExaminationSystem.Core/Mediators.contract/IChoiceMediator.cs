@@ -9,6 +9,7 @@ namespace ExaminationSystem.Domain.Mediators.contract
 {
     public interface IChoiceMediator
     {
+        Task<IEnumerable<ChoiceDto>> GetAllChoices();
 
         Task<int> AddChoice(ChoiceCreateDto choice);
 
