@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using AutoMapper;
+using ExaminationSystem.Application.Helpers;
 using ExaminationSystem.Domain.Repositories.contract;
 using ExaminationSystem.Domain.Services.contract;
 using ExaminationSystem.Infrastructure.Data;
@@ -17,6 +19,13 @@ namespace ExaminationSystem.API
             builder.RegisterAssemblyTypes(typeof(ICourseService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(ICourseStudentService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(ICourseInstructorService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(IDepartmentService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(IChoiceService).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
+
+            builder.Register(context => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfiles>();
+            }).CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
 
             
         }
