@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExaminationSystem.Domain.Dtos.Choice;
 using ExaminationSystem.Domain.Dtos.Department;
 using ExaminationSystem.Domain.Entities;
 using System;
@@ -15,7 +16,9 @@ namespace ExaminationSystem.Application.Helpers
         public MappingProfiles()
         {
             #region Choice
+            CreateMap<Choice, ChoiceDto>().ReverseMap();
 
+            CreateMap<ChoiceCreateDto, Choice>().ReverseMap();
 
             #endregion
 
