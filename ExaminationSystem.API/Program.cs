@@ -1,6 +1,8 @@
 
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
+using ExaminationSystem.Application.Helpers;
 using ExaminationSystem.Domain.Entities;
 using ExaminationSystem.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
@@ -43,12 +45,12 @@ namespace ExaminationSystem.API
                 builder.RegisterModule(new AutofacModule()));
             #endregion
 
-            #region AutoMapper
-
-            #endregion
+            
 
 
             var app = builder.Build();
+
+            MapperHelper.Mapper = app.Services.GetService<IMapper>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

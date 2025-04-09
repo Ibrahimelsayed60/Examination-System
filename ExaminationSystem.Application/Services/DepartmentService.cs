@@ -40,14 +40,16 @@ namespace ExaminationSystem.Application.Services
 
         public async Task UpdateDepartment(DepartmentUpdateDto departmentUpdateDto)
         {
-            var department = await _repo.getWithTrackingByIdAsync(departmentUpdateDto.Id);
+            var department = await _repo.GetByIdAsync(departmentUpdateDto.Id);
 
             if(department is null)
             {
                 throw new Exception("Department is not found");
             }
 
-            _repo.update(departmentUpdateDto.Mapone<Department>());
+            department = departmentUpdateDto.Mapone<Department>();
+
+            _repo.update(department);
 
             await _repo.SaveChangesAsync();
 

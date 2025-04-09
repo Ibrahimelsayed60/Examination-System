@@ -1,18 +1,13 @@
 ﻿using AutoMapper;
+using ExaminationSystem.API.ViewModels.Department;
 using ExaminationSystem.Domain.Dtos.Choice;
 using ExaminationSystem.Domain.Dtos.Department;
 using ExaminationSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ExaminationSystem.Application.Helpers
+namespace ExaminationSystem.API.Helpers
 {
     public class MappingProfiles:Profile
     {
-
         public MappingProfiles()
         {
             #region Choice
@@ -23,6 +18,11 @@ namespace ExaminationSystem.Application.Helpers
             #endregion
 
             #region Department
+
+            CreateMap<DepartmentViewModel, DepartmentDto>().ReverseMap();
+
+            CreateMap<DepartmentCreateViewModel, DepartmentCreateDto>().ReverseMap();
+            CreateMap<DepartmentUpdateViewModel, DepartmentUpdateDto>().ReverseMap();
 
             CreateMap<DepartmentDto, Department>().ReverseMap();
 
@@ -42,6 +42,5 @@ namespace ExaminationSystem.Application.Helpers
 
             #endregion
         }
-
     }
 }
