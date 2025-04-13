@@ -22,5 +22,7 @@ namespace ExaminationSystem.Domain.Entities
 
         public bool IsDeleted { get; set; }
 
+        public List<RefreshToken>? RefreshTokens { get; set; }
+
     }
 }
