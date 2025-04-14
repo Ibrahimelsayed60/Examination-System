@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ExaminationSystem.API.ViewModels.Department;
+using ExaminationSystem.Domain.Dtos.Account;
 using ExaminationSystem.Domain.Dtos.Choice;
 using ExaminationSystem.Domain.Dtos.Department;
 using ExaminationSystem.Domain.Entities;
@@ -10,6 +11,11 @@ namespace ExaminationSystem.API.Helpers
     {
         public MappingProfiles()
         {
+
+            #region Account
+            CreateMap<RegisterDto, AppUser>().ReverseMap();
+            #endregion
+
             #region Choice
             CreateMap<Choice, ChoiceDto>().ReverseMap();
 

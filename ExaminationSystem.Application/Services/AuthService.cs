@@ -29,9 +29,43 @@ namespace ExaminationSystem.Application.Services
             _configuration = configuration;
         }
 
-        public Task<AuthResponseDto> Login(LoginRequestDto loginRequestDto)
+        public async Task<AuthResponseDto> Login(LoginRequestDto loginRequestDto)
         {
-            throw new NotImplementedException();
+            var authDto = new AuthResponseDto();
+
+            var user = await _userManager.FindByEmailAsync(loginRequestDto.Email);
+
+            if (user is null || !await _userManager.CheckPasswordAsync(user, loginRequestDto.Password))
+            {
+                authDto.Message = "Email or Password is incorrect";
+                return authDto;
+            }
+
+            var token = await CreateJWTToken(user);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            authDto.IsAuthenticated = true;
+            authDto.Roles = roles.ToList();
+            authDto.Token = new JwtSecurityTokenHandler().WriteToken(token);
+            authDto.ExpiresOn = token.ValidTo;
+
+            if (user.RefreshTokens.Any(t => t.IsActive))
+            {
+                var activeRefreshToken = user.RefreshTokens.FirstOrDefault(t => t.IsActive);
+                authDto.RefreshToken = activeRefreshToken.Token;
+                authDto.RefreshTokenExpiration = activeRefreshToken.ExpiresOn;
+            }
+            else
+            {
+                var refreshToken = GenerateRefreshToken();
+                authDto.RefreshToken = refreshToken.Token;
+                authDto.RefreshTokenExpiration = refreshToken.ExpiresOn;
+                user.RefreshTokens.Add(refreshToken);
+                await _userManager.UpdateAsync(user);
+            }
+
+
+            return authDto;
         }
 
         public async Task<AuthResponseDto> Register(RegisterDto registerDto)
@@ -69,6 +103,13 @@ namespace ExaminationSystem.Application.Services
                 {
                     Message = errors
                 };
+            }
+
+            bool RoleExist = await _roleManager.RoleExistsAsync(registerDto.Type);
+
+            if(!RoleExist)
+            {
+                await _roleManager.CreateAsync(new IdentityRole<int>(registerDto.Type));
             }
 
             if(registerDto.Type == "Instructor")

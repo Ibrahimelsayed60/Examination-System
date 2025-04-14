@@ -5,9 +5,12 @@ using AutoMapper;
 using ExaminationSystem.Application.Helpers;
 using ExaminationSystem.Domain.Entities;
 using ExaminationSystem.Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ExaminationSystem.API
 {
@@ -36,6 +39,8 @@ namespace ExaminationSystem.API
             builder.Services.AddIdentity<AppUser, IdentityRole<int>>()
                 .AddEntityFrameworkStores<Context>();
 
+            builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+
             #endregion
 
             #region Autofac Registration
@@ -45,7 +50,26 @@ namespace ExaminationSystem.API
                 builder.RegisterModule(new AutofacModule()));
             #endregion
 
-            
+            builder.Services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+                    ValidAudience = builder.Configuration["JWT:ValidAudience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]))
+                };
+
+            });
 
 
             var app = builder.Build();
@@ -61,6 +85,7 @@ namespace ExaminationSystem.API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

@@ -31,6 +31,9 @@ namespace ExaminationSystem.API
             builder.RegisterType<DepartmentService>().As<IDepartmentService>().InstancePerLifetimeScope();
             builder.RegisterType<DepartmentMediator>().As<IDepartmentMediator>().InstancePerLifetimeScope();
 
+            builder.RegisterType<AuthService>().As<IAuthService>().InstancePerLifetimeScope();
+            builder.RegisterType<AuthMediator>().As<IAuthMediator>().InstancePerLifetimeScope();
+
             builder.Register(context => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfiles>();
