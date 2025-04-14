@@ -55,10 +55,8 @@ namespace ExaminationSystem.API.Controllers
                 };
             }
 
-            //if (!string.IsNullOrEmpty(authResponse.RefreshToken))
-            //{
-
-            //}
+            if (!string.IsNullOrEmpty(authResponse.RefreshToken))
+                SetRefreshTokenInCookies(authResponse.RefreshToken, authResponse.RefreshTokenExpiration);
 
             return new ResultViewModel<AuthResponseDto>
             {
@@ -66,6 +64,20 @@ namespace ExaminationSystem.API.Controllers
                 Result = authResponse
             };
 
+        }
+
+        private void SetRefreshTokenInCookies(string refreshToken, DateTime expiration)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = expiration.ToLocalTime(),
+                Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.None,
+            };
+
+            Response.Cookies.Append("RefreshToken", refreshToken, cookieOptions);
         }
 
     }

@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using ExaminationSystem.Infrastructure.Data;
 
 namespace ExaminationSystem.Application.Services
 {
@@ -21,12 +22,14 @@ namespace ExaminationSystem.Application.Services
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly Context _context;
 
-        public AuthService(UserManager<AppUser> userManager, RoleManager<IdentityRole<int>> roleManager, IConfiguration configuration) 
+        public AuthService(UserManager<AppUser> userManager, RoleManager<IdentityRole<int>> roleManager, IConfiguration configuration, Context context) 
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _context = context;
         }
 
         public async Task<AuthResponseDto> Login(LoginRequestDto loginRequestDto)
@@ -61,7 +64,10 @@ namespace ExaminationSystem.Application.Services
                 authDto.RefreshToken = refreshToken.Token;
                 authDto.RefreshTokenExpiration = refreshToken.ExpiresOn;
                 user.RefreshTokens.Add(refreshToken);
+                //_context.Users.Update(user);
                 await _userManager.UpdateAsync(user);
+                await _context.SaveChangesAsync();
+                
             }
 
 
@@ -195,6 +201,7 @@ namespace ExaminationSystem.Application.Services
                 Token = Convert.ToBase64String(randomNumber),
                 ExpiresOn = DateTime.UtcNow.AddDays(10),
                 CreatedOn = DateTime.UtcNow,
+                
             };
 
         }

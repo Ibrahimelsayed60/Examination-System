@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ExaminationSystem.API.Middlewares;
 
 namespace ExaminationSystem.API
 {
@@ -66,7 +67,8 @@ namespace ExaminationSystem.API
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
                     ValidAudience = builder.Configuration["JWT:ValidAudience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"])),
+                    ClockSkew = TimeSpan.Zero
                 };
 
             });
@@ -75,6 +77,8 @@ namespace ExaminationSystem.API
             var app = builder.Build();
 
             MapperHelper.Mapper = app.Services.GetService<IMapper>();
+
+            app.UseMiddleware<TransactionMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
