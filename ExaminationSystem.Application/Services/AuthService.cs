@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using ExaminationSystem.Infrastructure.Data;
+using AutoMapper.Internal;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystem.Application.Services
 {
@@ -63,9 +65,10 @@ namespace ExaminationSystem.Application.Services
                 var refreshToken = GenerateRefreshToken();
                 authDto.RefreshToken = refreshToken.Token;
                 authDto.RefreshTokenExpiration = refreshToken.ExpiresOn;
-                user.RefreshTokens.Add(refreshToken);
-                //_context.Users.Update(user);
-                await _userManager.UpdateAsync(user);
+                var updatedUser =await _userManager.Users.AsTracking().Include(u => u.RefreshTokens).FirstOrDefaultAsync(u => u.Email == loginRequestDto.Email);
+                updatedUser.RefreshTokens.Add(refreshToken);
+                _context.Users.Update(updatedUser);
+                //await _userManager.UpdateAsync(user);
                 await _context.SaveChangesAsync();
                 
             }
