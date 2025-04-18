@@ -3,6 +3,7 @@ using ExaminationSystem.API.ViewModels.Department;
 using ExaminationSystem.Domain.Dtos.Account;
 using ExaminationSystem.Domain.Dtos.Choice;
 using ExaminationSystem.Domain.Dtos.Department;
+using ExaminationSystem.Domain.Dtos.Exam;
 using ExaminationSystem.Domain.Entities;
 
 namespace ExaminationSystem.API.Helpers
@@ -45,6 +46,16 @@ namespace ExaminationSystem.API.Helpers
             #endregion
 
             #region Course
+
+            #endregion
+
+            #region Exam
+
+            CreateMap<Exam, ExamDto>().ReverseMap();
+
+            CreateMap<ExamCreateDto, Exam>().ReverseMap();
+
+            CreateMap<ExamUpdateDto, Exam>().ReverseMap();
 
             #endregion
         }
