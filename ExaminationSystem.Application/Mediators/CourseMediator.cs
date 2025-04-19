@@ -77,22 +77,22 @@ namespace ExaminationSystem.Application.Mediators
 
         }
 
-        public async Task DeleteCourse(CourseUpdateDto course)
+        public async Task DeleteCourse(int id)
         {
-            var courses = await _courseService.GetByIdAsync(course.Id);
+            var courses = await _courseService.GetByIdAsync(id);
 
             if(courses is not null)
             {
-                await _courseService.DeleteCourse(course.Id);
+                await _courseService.DeleteCourse(id);
 
-                var courseInstructors = await _courseInstructorService.Get(c => c.CourseId == course.Id);
+                var courseInstructors = await _courseInstructorService.Get(c => c.CourseId == id);
 
                 if (courseInstructors is not null)
                 {
                     await _courseInstructorService.DeleteRange(courseInstructors);
                 }
 
-                var courseStudents = await _courseStudentService.Get(c => c.CourseId == course.Id);
+                var courseStudents = await _courseStudentService.Get(c => c.CourseId == id);
 
                 if (courseStudents is not null)
                 {
@@ -106,6 +106,15 @@ namespace ExaminationSystem.Application.Mediators
             }
 
         }
-     
+
+        public async Task<int> assignStudentToCourse(CourseStudentDto courseStudentDto)
+        {
+            return await _courseStudentService.Add(courseStudentDto);
+        }
+
+        public async Task<CourseDto> GetById(int id)
+        {
+            return await _courseService.GetByIdAsync(id);
+        }
     }
 }

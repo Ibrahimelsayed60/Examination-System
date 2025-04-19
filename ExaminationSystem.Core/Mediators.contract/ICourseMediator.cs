@@ -11,15 +11,17 @@ namespace ExaminationSystem.Domain.Mediators.contract
     {
         Task<IEnumerable<CourseDto>> GetAllCourses();
 
+        Task<CourseDto> GetById(int id);
+
         Task<IEnumerable<CourseDto>> GetCoursesByInstructor(int instructorId);
 
         Task<int> AddCourse(CourseCreateDto course);
 
         Task UpdateCourse(CourseUpdateDto course);
 
-        Task DeleteCourse(CourseUpdateDto course);
+        Task DeleteCourse(int id);
 
-
+        Task<int> assignStudentToCourse(CourseStudentDto courseStudentDto);
 
     }
 }
