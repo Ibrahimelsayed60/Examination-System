@@ -20,6 +20,9 @@ namespace ExaminationSystem.Domain.Mediators.contract
 
         Task DeleteExam(int id);
 
+        Task<bool> TakeExam(ExamStudentCreateDto examStudentCreateDto);
+
+        Task<bool> SubmitExam(ExamStudentDto examStudentDto);
 
     }
 }
