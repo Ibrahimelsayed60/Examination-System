@@ -7,6 +7,7 @@ using ExaminationSystem.Domain.Dtos.Choice;
 using ExaminationSystem.Domain.Dtos.Course;
 using ExaminationSystem.Domain.Dtos.Department;
 using ExaminationSystem.Domain.Dtos.Exam;
+using ExaminationSystem.Domain.Dtos.Question;
 using ExaminationSystem.Domain.Entities;
 
 namespace ExaminationSystem.API.Helpers
@@ -80,6 +81,15 @@ namespace ExaminationSystem.API.Helpers
             CreateMap<ExamStudentViewModel, ExamStudentDto>().ReverseMap();
 
             CreateMap<ExamQuestion, ExamQuestionDto>().ReverseMap();
+
+            #endregion
+
+
+            #region Question
+
+            CreateMap<Question, QuestionCreateDto>().ReverseMap();
+
+            CreateMap<Question, QuestionUpdateDto>().ReverseMap();
 
             #endregion
         }
