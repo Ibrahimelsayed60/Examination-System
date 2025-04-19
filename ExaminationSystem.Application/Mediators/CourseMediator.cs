@@ -66,7 +66,7 @@ namespace ExaminationSystem.Application.Mediators
 
         public async Task UpdateCourse(CourseUpdateDto course)
         {
-            var data = _courseInstructorService.Get(c => c.InstructorId == course.InstructorsIDs.FirstOrDefault() && c.CourseId == course.Id);
+            var data = await _courseInstructorService.Get(c => c.InstructorId == course.InstructorsIDs.FirstOrDefault() && c.CourseId == course.Id);
 
             if(data is null)
             {

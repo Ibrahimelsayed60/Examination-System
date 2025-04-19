@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using ExaminationSystem.API.ViewModels.Course;
 using ExaminationSystem.API.ViewModels.Department;
+using ExaminationSystem.API.ViewModels.Exam;
 using ExaminationSystem.Domain.Dtos.Account;
 using ExaminationSystem.Domain.Dtos.Choice;
+using ExaminationSystem.Domain.Dtos.Course;
 using ExaminationSystem.Domain.Dtos.Department;
 using ExaminationSystem.Domain.Dtos.Exam;
 using ExaminationSystem.Domain.Entities;
@@ -46,6 +49,15 @@ namespace ExaminationSystem.API.Helpers
             #endregion
 
             #region Course
+            CreateMap<Course, CourseDto>().ReverseMap();
+            CreateMap<Course, CourseCreateDto>().ReverseMap();
+            CreateMap<Course, CourseUpdateDto>().ReverseMap();
+            CreateMap<CourseInstructor, CourseInstructorDto>().ReverseMap();
+            CreateMap<CourseDto, CourseViewModel>().ReverseMap();
+            CreateMap<CourseCreateDto, CourseCreateViewModel>() .ReverseMap();
+            CreateMap<CourseUpdateDto , CourseUpdateViewModel>() .ReverseMap();
+            CreateMap<CourseStudentDto, CourseStudentViewModel>() .ReverseMap();
+            CreateMap<CourseStudent, CourseStudentDto>() .ReverseMap();
 
             #endregion
 
@@ -56,6 +68,16 @@ namespace ExaminationSystem.API.Helpers
             CreateMap<ExamCreateDto, Exam>().ReverseMap();
 
             CreateMap<ExamUpdateDto, Exam>().ReverseMap();
+
+            CreateMap<ExamViewModel, ExamDto>().ReverseMap();
+
+            CreateMap<ExamCreateViewModel, ExamCreateDto>().ReverseMap();
+
+            CreateMap<ExamViewModel, ExamUpdateDto>().ReverseMap();
+
+            CreateMap<ExamStudentCreateViewModel, ExamStudentCreateDto>().ReverseMap();
+
+            CreateMap<ExamStudentViewModel, ExamStudentDto>().ReverseMap();
 
             #endregion
         }

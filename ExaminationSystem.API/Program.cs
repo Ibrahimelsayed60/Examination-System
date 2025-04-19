@@ -73,6 +73,15 @@ namespace ExaminationSystem.API
 
             });
 
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Instructor", policy =>
+                    policy.RequireRole("Instructor"));
+
+                options.AddPolicy("Student", policy =>
+                    policy.RequireRole("Student"));
+            });
+
 
             var app = builder.Build();
 

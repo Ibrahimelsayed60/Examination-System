@@ -34,6 +34,18 @@ namespace ExaminationSystem.API
             builder.RegisterType<AuthService>().As<IAuthService>().InstancePerLifetimeScope();
             builder.RegisterType<AuthMediator>().As<IAuthMediator>().InstancePerLifetimeScope();
 
+            builder.RegisterType<CourseService>().As<ICourseService>().InstancePerLifetimeScope();
+            builder.RegisterType<CourseInstructorService>().As<ICourseInstructorService>().InstancePerLifetimeScope();
+            builder.RegisterType<CourseStudentService>().As<ICourseStudentService>().InstancePerLifetimeScope();
+            builder.RegisterType<CourseMediator>().As<ICourseMediator>().InstancePerLifetimeScope();
+
+
+            builder.RegisterType<ExamService>().As<IExamService>().InstancePerLifetimeScope();
+            builder.RegisterType<ExamQuestionService>().As<IExamQuestionService>().InstancePerLifetimeScope();
+            builder.RegisterType<ExamStudentService>().As<IExamStudentService>().InstancePerLifetimeScope();
+            builder.RegisterType<ExamMediator>().As<IExamMediator>().InstancePerLifetimeScope();
+
+
             builder.Register(context => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfiles>();

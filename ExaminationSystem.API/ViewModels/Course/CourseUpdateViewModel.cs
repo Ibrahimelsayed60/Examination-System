@@ -17,7 +17,7 @@
 
         public int DepartmentId { get; set; }
 
-        public ICollection<int> InstructorIDs { get; set; }
+        public ICollection<int> InstructorsIDs { get; set; }
         public ICollection<int> StudentsIDs { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace ExaminationSystem.Application.Services
 
         public async Task UpdateCourse(CourseUpdateDto courseUpdateDto)
         {
-            var course = await _courseRepo.getWithTrackingByIdAsync(courseUpdateDto.Id);
+            var course = await _courseRepo.GetByIdAsync(courseUpdateDto.Id);
 
             if(course is null)
             {
@@ -60,7 +60,7 @@ namespace ExaminationSystem.Application.Services
 
         public async Task DeleteCourse(int id)
         {
-            var course = _courseRepo.getWithTrackingByIdAsync(id);
+            var course = await _courseRepo.getWithTrackingByIdAsync(id);
 
             if (course is null)
             {
