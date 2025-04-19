@@ -58,7 +58,7 @@ namespace ExaminationSystem.Application.Services
 
         public async Task DeleteExam(int id)
         {
-            var exam = await _examRepo.getWithTrackingByIdAsync(id);
+            var exam = await _examRepo.GetByIdAsync(id);
 
             if(exam is null)
             {

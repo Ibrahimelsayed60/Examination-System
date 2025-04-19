@@ -79,6 +79,8 @@ namespace ExaminationSystem.API.Helpers
 
             CreateMap<ExamStudentViewModel, ExamStudentDto>().ReverseMap();
 
+            CreateMap<ExamQuestion, ExamQuestionDto>().ReverseMap();
+
             #endregion
         }
     }

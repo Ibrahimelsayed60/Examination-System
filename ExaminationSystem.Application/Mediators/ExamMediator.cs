@@ -53,7 +53,7 @@ namespace ExaminationSystem.Application.Mediators
 
         public async Task DeleteExam(int id)
         {
-            var exam = _examService.GetExamById(id);
+            var exam = await _examService.GetExamById(id);
 
             if(exam is not null)
             {
@@ -61,7 +61,7 @@ namespace ExaminationSystem.Application.Mediators
 
                 var examQuestions = await _examQuestionService.Get(e => e.ExamId == id);
 
-                if(examQuestions is not null)
+                if(examQuestions is not null && examQuestions.Count() > 0)
                 {
                     await _examQuestionService.DeleteRange(examQuestions);
                 }
