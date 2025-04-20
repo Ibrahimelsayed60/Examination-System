@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystem.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ChoicesController : ControllerBase
     {
@@ -36,11 +36,21 @@ namespace ExaminationSystem.API.Controllers
             return ResultViewModel<int>.Success(choiceId);
         }
 
-        //[HttpPut]
-        //public Task<ResultViewModel<bool>> UpdateChoice()
-        //{
+        [HttpPut]
+        public async Task<ResultViewModel<bool>> UpdateChoice(ChoiceCreateViewModel choiceCreateViewModel)
+        {
+            await _choiceMediator.UpdateChoice(choiceCreateViewModel.Mapone<ChoiceDto>());
 
-        //}
+            return ResultViewModel<bool>.Success(true);
+        }
+
+        [HttpDelete]
+        public async Task<ResultViewModel<bool>> DeleteChoice(int id)
+        {
+            await _choiceMediator.DeleteChoice(id);
+
+            return ResultViewModel<bool>.Success(true);
+        }
 
 
     }

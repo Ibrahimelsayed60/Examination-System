@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using ExaminationSystem.API.ViewModels.Choices;
 using ExaminationSystem.API.ViewModels.Course;
 using ExaminationSystem.API.ViewModels.Department;
 using ExaminationSystem.API.ViewModels.Exam;
+using ExaminationSystem.API.ViewModels.Question;
 using ExaminationSystem.Domain.Dtos.Account;
 using ExaminationSystem.Domain.Dtos.Choice;
 using ExaminationSystem.Domain.Dtos.Course;
@@ -25,6 +27,12 @@ namespace ExaminationSystem.API.Helpers
             CreateMap<Choice, ChoiceDto>().ReverseMap();
 
             CreateMap<ChoiceCreateDto, Choice>().ReverseMap();
+
+            CreateMap<ChoiceDto, ChoiceViewModel>().ReverseMap();
+
+            CreateMap<ChoiceCreateViewModel, ChoiceCreateDto>().ReverseMap();
+
+            CreateMap<ChoiceCreateViewModel, ChoiceDto>().ReverseMap();
 
             #endregion
 
@@ -89,7 +97,15 @@ namespace ExaminationSystem.API.Helpers
 
             CreateMap<Question, QuestionCreateDto>().ReverseMap();
 
+            CreateMap<Question, QuestionDto>().ReverseMap();   
+
+            CreateMap<QuestionDto, QuestionViewModel>().ReverseMap();
+
             CreateMap<Question, QuestionUpdateDto>().ReverseMap();
+
+            CreateMap<QuestionCreateDto, QuestionCreateViewModel>().ReverseMap();
+
+            CreateMap<QuestionCreateViewModel, QuestionUpdateDto>().ReverseMap();
 
             #endregion
         }

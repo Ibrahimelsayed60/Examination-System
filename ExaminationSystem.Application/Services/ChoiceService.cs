@@ -53,9 +53,9 @@ namespace ExaminationSystem.Application.Services
 
         public async Task UpdateChoice(ChoiceDto choiceDto)
         {
-            var choice = await _repo.getWithTrackingByIdAsync(choiceDto.Id);
+            var choice = await _repo.GetByIdAsync(choiceDto.Id);
 
-            _repo.update(choice);
+            _repo.update(choiceDto.Mapone<Choice>());
 
             await _repo.SaveChangesAsync();
         }

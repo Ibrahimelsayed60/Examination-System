@@ -13,5 +13,7 @@ namespace ExaminationSystem.Domain.Dtos.Choice
 
         public bool IsCorrect { get; set; }
 
+        public int QuestionId { get; set; }
+
     }
 }

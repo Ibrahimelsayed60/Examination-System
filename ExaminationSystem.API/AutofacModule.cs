@@ -46,6 +46,10 @@ namespace ExaminationSystem.API
             builder.RegisterType<ExamMediator>().As<IExamMediator>().InstancePerLifetimeScope();
 
 
+            builder.RegisterType<QuestionService>().As<IQuestionService>().InstancePerLifetimeScope();
+            builder.RegisterType<QuestionMediator>().As<IQuestionMediator>().InstancePerLifetimeScope();
+
+
             builder.Register(context => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfiles>();
